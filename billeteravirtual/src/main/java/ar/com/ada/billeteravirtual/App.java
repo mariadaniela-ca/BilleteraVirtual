@@ -157,7 +157,6 @@ public class App {
         m.setFechaMovimiento(new Date());
         m.setEstado(0);
         m.setTipoDeOperacion("Ingreso");
-        ;
         // m.setCuenta(b.getCuentas().get(0));
         b.agregarMovimiento(m);
 
