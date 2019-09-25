@@ -18,4 +18,5 @@
     <mapping class="ar.com.ada.billeteravirtual.Cuenta" />
     <mapping class="ar.com.ada.billeteravirtual.Movimiento" />
   </session-factory>
+  
 </hibernate-configuration>
