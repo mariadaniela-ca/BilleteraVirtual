@@ -12,20 +12,20 @@ public class App {
     public static Scanner Teclado = new Scanner(System.in);
 
     public static PersonaManager ABMPersona = new PersonaManager();
-    public static UsuarioManager ABMUsuario = new UsuarioManager();
+    //public static UsuarioManager ABMUsuario = new UsuarioManager();
     public static BilleteraManager ABMBilletera = new BilleteraManager();
     public static CuentaManager ABMCuenta = new CuentaManager();
-    public static MovimientoManager ABMMovimiento = new MovimientoManager();
+    //public static MovimientoManager ABMMovimiento = new MovimientoManager();
 
     public static void main(String[] args) throws Exception {
 
         try {
 
             ABMPersona.setup();
-            ABMUsuario.setup();
+           // ABMUsuario.setup();
             ABMBilletera.setup();
             ABMCuenta.setup();
-            ABMMovimiento.setup();
+           // ABMMovimiento.setup();
 
             printOpciones();
 
@@ -73,10 +73,10 @@ public class App {
 
             // Hago un safe exit del manager
             ABMPersona.exit();
-            ABMUsuario.exit();
+            //ABMUsuario.exit();
             ABMBilletera.exit();
             ABMCuenta.exit();
-            ABMMovimiento.exit();
+            //ABMMovimiento.exit();
 
         } catch (Exception e) {
 

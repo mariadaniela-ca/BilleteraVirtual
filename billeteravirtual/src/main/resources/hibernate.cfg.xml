@@ -4,14 +4,14 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>       
   <session-factory>
-    
+
     <!-- Database connection settings -->
     <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
     <property name="connection.url">jdbc:mysql://localhost:3306/billeteravirtual?serverTimezone=UTC</property>
     <property name="connection.username">adaDB</property>
     <property name="connection.password">Sh@k1r@pr0gr@m@d0r@</property>
-    <property name="show_sql">true</property>
+    <property name="show_sql">false</property>
         
     <mapping class="ar.com.ada.billeteravirtual.Persona" />
     <mapping class="ar.com.ada.billeteravirtual.Usuario" />
