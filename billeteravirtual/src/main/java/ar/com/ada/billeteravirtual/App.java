@@ -12,20 +12,20 @@ public class App {
     public static Scanner Teclado = new Scanner(System.in);
 
     public static PersonaManager ABMPersona = new PersonaManager();
-    //public static UsuarioManager ABMUsuario = new UsuarioManager();
+    public static UsuarioManager ABMUsuario = new UsuarioManager();
     public static BilleteraManager ABMBilletera = new BilleteraManager();
     public static CuentaManager ABMCuenta = new CuentaManager();
-    //public static MovimientoManager ABMMovimiento = new MovimientoManager();
+    public static MovimientoManager ABMMovimiento = new MovimientoManager();
 
     public static void main(String[] args) throws Exception {
 
         try {
 
             ABMPersona.setup();
-           // ABMUsuario.setup();
+            // ABMUsuario.setup();
             ABMBilletera.setup();
             ABMCuenta.setup();
-           // ABMMovimiento.setup();
+            // ABMMovimiento.setup();
 
             printOpciones();
 
@@ -60,6 +60,9 @@ public class App {
                     listarPorNombre();
                     break;
 
+                case 6:
+                    transferirDinero();
+
                 default:
                     System.out.println("La opcion no es correcta.");
                     break;
@@ -73,10 +76,10 @@ public class App {
 
             // Hago un safe exit del manager
             ABMPersona.exit();
-            //ABMUsuario.exit();
+            // ABMUsuario.exit();
             ABMBilletera.exit();
             ABMCuenta.exit();
-            //ABMMovimiento.exit();
+            // ABMMovimiento.exit();
 
         } catch (Exception e) {
 
@@ -174,6 +177,7 @@ public class App {
             Billetera b2 = ABMBilletera.read(b.getBilletera_id());
             System.out.println("Su saldo es: " + b2.getCuentas().get(0).getSaldo());
         }
+        transferirDinero();
     }
 
     public static void baja() {
@@ -299,9 +303,73 @@ public class App {
         System.out.println("Para modificar una persona presione 3.");
         System.out.println("Para ver el listado presione 4.");
         System.out.println("Buscar una persona por nombre especifico(SQL Injection)) 5.");
+        System.out.println("Transferir dinero a otro usuario presione 6");
         System.out.println("Para terminar presione 0.");
         System.out.println("");
         System.out.println("=======================================");
+    }
+
+    public static void transferirDinero() {
+        System.out.println("Escriba el numero de cuenta a la persona que desea transferir");
+        int cuenta = Teclado.nextInt();
+        System.out.println("Escriba el numero de su cuenta");
+        int tucuenta = Teclado.nextInt();
+
+        Cuenta cuentaEncontrada = ABMCuenta.read(cuenta);
+
+        Cuenta tuCuenta = ABMCuenta.read(tucuenta);
+
+        Billetera billeteraDestino = ABMBilletera.read(cuentaEncontrada.getBilletera().getBilletera_id());
+
+        Billetera billeteraOrigen  = ABMBilletera.read(tuCuenta.getBilletera().getBilletera_id());
+
+        Persona personaEncontrada = ABMPersona.read(billeteraDestino.getPersona().getPersonaId());
+
+        Persona personaOrigen = ABMPersona.read(billeteraOrigen.getPersona().getPersonaId());
+
+        //Usuario usuarioD = ABMUsuario.read(personaEncontrada.getUsuario().getUsuarioid());
+        
+        //Usuario usuarioO = ABMUsuario.read(personaOrigen.getUsuario().getUsuarioid());
+
+
+        if (cuentaEncontrada != null) {
+            System.out.println("La cuenta encontrada pertenece a: " + personaEncontrada.getNombre());
+            Movimiento m = new Movimiento();
+            m.setImporte(-(20.0));
+            m.setDeUsuario_id(personaEncontrada.getUsuario().getUsuarioid());
+            m.setaUsario_id(personaOrigen.getUsuario().getUsuarioid());
+            m.setCuentaDestino_id(cuentaEncontrada.getNroCuenta_id());
+            m.setCuentaOrigen_id(tuCuenta.getNroCuenta_id());
+            m.setConceptoDeOperacion("Alquiler");
+            m.setFechaMovimiento(new Date());
+            m.setEstado(0);
+            m.setTipoDeOperacion("Transfierencia");
+            // m.setCuenta(b.getCuentas().get(0));
+            billeteraOrigen.agregarMovimiento(m);
+            ABMBilletera.update(billeteraOrigen);
+
+            m.setImporte(20.0);
+            m.setDeUsuario_id(personaOrigen.getUsuario().getUsuarioid());
+            m.setaUsario_id(personaEncontrada.getUsuario().getUsuarioid());
+            m.setCuentaDestino_id(tuCuenta.getNroCuenta_id());
+            m.setCuentaOrigen_id(cuentaEncontrada.getNroCuenta_id());
+            m.setConceptoDeOperacion("Alquiler");
+            m.setFechaMovimiento(new Date());
+            m.setEstado(0);
+            m.setTipoDeOperacion("Transferencia");
+
+            billeteraDestino.agregarMovimiento(m);
+            ABMBilletera.update(billeteraDestino);
+
+
+            
+
+            
+
+
+
+        }
+
     }
 
 }
