@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.*;
 import javax.persistence.*;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 /**
  * Billetera
  */
@@ -19,7 +22,8 @@ public class Billetera {
     @JoinColumn(name = "persona_id", referencedColumnName = "persona_id")
     private Persona persona;
 
-    @OneToMany(mappedBy = "billetera", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "billetera", cascade = CascadeType.ALL)
+    @LazyCollection (LazyCollectionOption.FALSE)
     private List<Cuenta> cuentas = new ArrayList<Cuenta>();
 
     public Persona getPersona() {

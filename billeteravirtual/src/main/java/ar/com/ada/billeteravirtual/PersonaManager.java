@@ -129,5 +129,15 @@ public class PersonaManager {
         return personas;
 
     }
+    
+    protected Persona readByEmail(String email) {
+        Session session = sessionFactory.openSession();
+
+        Persona persona = session.get(Persona.class, email);
+
+        session.close();
+
+        return persona;
+    }
 
 }

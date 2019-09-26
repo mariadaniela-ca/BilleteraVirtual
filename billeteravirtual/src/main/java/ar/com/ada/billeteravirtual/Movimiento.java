@@ -83,6 +83,7 @@ public class Movimiento {
         this.importe = importe;
     }
 
+
     public String getTipoDeOperacion() {
         return tipoDeOperacion;
     }

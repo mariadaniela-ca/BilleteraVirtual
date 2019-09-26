@@ -3,6 +3,9 @@ package ar.com.ada.billeteravirtual;
 import java.util.*;
 import javax.persistence.*;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 
 /**
  * Cuenta
@@ -20,6 +23,7 @@ public class Cuenta {
     private Billetera billetera;
 
     @OneToMany(mappedBy = "cuenta", cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Movimiento> movimientos = new ArrayList<Movimiento>();
 
 
@@ -61,6 +65,7 @@ public class Cuenta {
 
     }
 
+
     public List<Movimiento> getMovimientos(){
         return movimientos;
     }
@@ -77,6 +82,7 @@ public class Cuenta {
         this.setSaldoDisponible(this.getSaldo());
         
     }
+
 
     public int getNroCuenta_id() {
         return nroCuenta_id;

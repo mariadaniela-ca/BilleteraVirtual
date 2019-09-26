@@ -93,5 +93,5 @@ public class Usuario {
     public void setUsuarioid(int usuarioid) {
         this.usuarioid = usuarioid;
     }
-
+  
 }
