@@ -44,10 +44,10 @@ public class BilleteraManager {
         session.close();
     }
 
-    public Billetera read(int billetera_id) {
+    public Billetera read(int billeteraId) {
         Session session = sessionFactory.openSession();
 
-        Billetera billetera = session.get(Billetera.class, billetera_id);
+        Billetera billetera = session.get(Billetera.class, billeteraId);
 
         session.close();
 

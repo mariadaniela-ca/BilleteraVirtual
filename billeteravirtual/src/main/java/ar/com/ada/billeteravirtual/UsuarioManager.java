@@ -49,15 +49,16 @@ public class UsuarioManager {
         session.close();
     }
 
-    public Usuario read(int usuarioid) {
+    public Usuario read(int usuarioId) {
         Session session = sessionFactory.openSession();
 
-        Usuario usuario = session.get(Usuario.class, usuarioid);
+        Usuario usuario = session.get(Usuario.class, usuarioId );
 
         session.close();
 
         return usuario;
     }
+
 
     /*
      * protected Usuario readByDNI(String dni) { Session session =

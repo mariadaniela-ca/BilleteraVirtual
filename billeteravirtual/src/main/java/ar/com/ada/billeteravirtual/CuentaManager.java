@@ -45,10 +45,10 @@ public class CuentaManager {
         session.close();
     }
 
-    public Cuenta read(int nroCuenta_id) {
+    public Cuenta read(int nroCuentaId) {
         Session session = sessionFactory.openSession();
 
-        Cuenta cuenta = session.get(Cuenta.class, nroCuenta_id);
+        Cuenta cuenta = session.get(Cuenta.class, nroCuentaId);
 
         session.close();
 

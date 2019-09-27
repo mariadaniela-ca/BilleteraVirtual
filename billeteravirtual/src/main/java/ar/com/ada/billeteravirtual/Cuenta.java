@@ -16,7 +16,7 @@ public class Cuenta {
     @Id
     @Column(name = "cuenta_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int nroCuenta_id;
+    private int nroCuentaId;
 
     @ManyToOne
     @JoinColumn(name = "billetera_id", referencedColumnName = "billetera_id")
@@ -84,12 +84,12 @@ public class Cuenta {
     }
 
 
-    public int getNroCuenta_id() {
-        return nroCuenta_id;
+    public int getNroCuentaId() {
+        return nroCuentaId;
     }
 
-    public void setNroCuenta_id(int nroCuenta_id) {
-        this.nroCuenta_id = nroCuenta_id;
+    public void setNroCuentaId(int nroCuentaId) {
+        this.nroCuentaId = nroCuentaId;
     }
 
     public String getMoneda() {

@@ -15,8 +15,9 @@ import org.hibernate.annotations.LazyCollectionOption;
 @Table(name = "billetera")
 public class Billetera {
     @Id
+    @Column (name = "billetera_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int billetera_id;
+    private int billeteraId;
 
     @OneToOne
     @JoinColumn(name = "persona_id", referencedColumnName = "persona_id")
@@ -58,12 +59,12 @@ public class Billetera {
         
     }
 
-    public int getBilletera_id() {
-        return billetera_id;
+    public int getBilleteraId() {
+        return billeteraId;
     }
 
-    public void setBilletera_id(int billetera_id) {
-        this.billetera_id = billetera_id;
+    public void setBilleteraId(int billeteraId) {
+        this.billeteraId = billeteraId;
     }
 
 }

@@ -42,8 +42,8 @@ public class Persona {
         return personaId;
     }
 
-    public void setPersonaId(int pesonaId) {
-        this.personaId = pesonaId;
+    public void setPersonaId(int personaId) {
+        this.personaId = personaId;
     }
 
     public String getNombre() {

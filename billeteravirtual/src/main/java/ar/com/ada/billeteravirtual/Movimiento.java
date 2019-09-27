@@ -12,8 +12,9 @@ import javax.persistence.*;
 public class Movimiento {
 
     @Id
+    @Column(name = "movimiento_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int movimiento_id;
+    private int movimientoId;
 
     @ManyToOne
     @JoinColumn(name = "cuenta_id", referencedColumnName = "cuenta_id")
@@ -35,20 +36,20 @@ public class Movimiento {
     private int estado;
 
     //private Usuario deUsuario;
-
-    private int deUsuario_id;
+    @Column(name = "deUsuario_id")
+    private int deUsuarioId;
 
     //private Usuario aUsuario;
     @Column(name = "aUsuario_id")
-    private int aUsario_id;
+    private int aUsuarioId;
 
    // private Cuenta cuentaDestino;
-
-    private int cuentaDestino_id;
+   @Column(name = "cuentaDestino_id")
+    private int cuentaDestinoId;
 
     //private Cuenta cuentaOrigen;
-
-    private int cuentaOrigen_id;
+    @Column(name = "cuentaOrigen_id")
+    private int cuentaOrigenId;
 
 
     public Cuenta getCuenta(){
@@ -59,12 +60,12 @@ public class Movimiento {
         this.cuenta = cuenta;
     }
 
-    public int getMovimiento_id() {
-        return movimiento_id;
+    public int getMovimientoId() {
+        return movimientoId;
     }
 
-    public void setMovimiento_id(int movimiento_id) {
-        this.movimiento_id = movimiento_id;
+    public void setMovimientoId(int movimientoId) {
+        this.movimientoId = movimientoId;
     }
 
     public Date getFechaMovimiento() {
@@ -116,36 +117,36 @@ public class Movimiento {
         this.estado = estado;
     }
 
-    public int getDeUsuario_id() {
-        return deUsuario_id;
+    public int getDeUsuarioId() {
+        return deUsuarioId;
     }
 
-    public void setDeUsuario_id(int deUsuario_id) {
-        this.deUsuario_id = deUsuario_id;
+    public void setDeUsuarioId(int deUsuarioId) {
+        this.deUsuarioId = deUsuarioId;
     }
 
-    public int getaUsario_id() {
-        return aUsario_id;
+    public int getaUsuarioId() {
+        return aUsuarioId;
     }
 
-    public void setaUsario_id(int aUsario_id) {
-        this.aUsario_id = aUsario_id;
+    public void setAUsuarioId(int aUsuarioId) {
+        this.aUsuarioId = aUsuarioId;
     }
 
-    public int getCuentaDestino_id() {
-        return cuentaDestino_id;
+    public int getCuentaDestinoId() {
+        return cuentaDestinoId;
     }
 
-    public void setCuentaDestino_id(int cuentaDestino_id) {
-        this.cuentaDestino_id = cuentaDestino_id;
+    public void setCuentaDestinoId(int cuentaDestinoId) {
+        this.cuentaDestinoId = cuentaDestinoId;
     }
 
-    public int getCuentaOrigen_id() {
-        return cuentaOrigen_id;
+    public int getCuentaOrigenId() {
+        return cuentaOrigenId;
     }
 
-    public void setCuentaOrigen_id(int cuentaOrigen_id) {
-        this.cuentaOrigen_id = cuentaOrigen_id;
+    public void setCuentaOrigenId(int cuentaOrigenId) {
+        this.cuentaOrigenId = cuentaOrigenId;
     }
 
 

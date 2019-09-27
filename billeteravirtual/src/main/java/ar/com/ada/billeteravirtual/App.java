@@ -22,7 +22,7 @@ public class App {
         try {
 
             ABMPersona.setup();
-            // ABMUsuario.setup();
+            ABMUsuario.setup();
             ABMBilletera.setup();
             ABMCuenta.setup();
             // ABMMovimiento.setup();
@@ -62,6 +62,7 @@ public class App {
 
                 case 6:
                     transferirDinero();
+                    break;
 
                 default:
                     System.out.println("La opcion no es correcta.");
@@ -76,7 +77,7 @@ public class App {
 
             // Hago un safe exit del manager
             ABMPersona.exit();
-            // ABMUsuario.exit();
+            ABMUsuario.exit();
             ABMBilletera.exit();
             ABMCuenta.exit();
             // ABMMovimiento.exit();
@@ -152,10 +153,10 @@ public class App {
 
         Movimiento m = new Movimiento();
         m.setImporte(100.0);
-        m.setDeUsuario_id(u.getUsuarioid());
-        m.setaUsario_id(u.getUsuarioid());
-        m.setCuentaDestino_id(c.getNroCuenta_id());
-        m.setCuentaOrigen_id(c.getNroCuenta_id());
+        m.setDeUsuarioId(u.getUsuarioId());
+        m.setAUsuarioId(u.getUsuarioId());
+        m.setCuentaDestinoId(c.getNroCuentaId());
+        m.setCuentaOrigenId(c.getNroCuentaId());
         m.setConceptoDeOperacion("Regalo");
         m.setFechaMovimiento(new Date());
         m.setEstado(0);
@@ -174,10 +175,10 @@ public class App {
         System.out.println("Desea consultar saldo?");
         String consulta = Teclado.nextLine();
         if (consulta.equals("si")) {
-            Billetera b2 = ABMBilletera.read(b.getBilletera_id());
+            Billetera b2 = ABMBilletera.read(b.getBilleteraId());
             System.out.println("Su saldo es: " + b2.getCuentas().get(0).getSaldo());
         }
-        transferirDinero();
+        // transferirDinero();
     }
 
     public static void baja() {
@@ -310,66 +311,42 @@ public class App {
     }
 
     public static void transferirDinero() {
-        System.out.println("Escriba el numero de cuenta a la persona que desea transferir");
-        int cuenta = Teclado.nextInt();
-        System.out.println("Escriba el numero de su cuenta");
-        int tucuenta = Teclado.nextInt();
 
-        Cuenta cuentaEncontrada = ABMCuenta.read(cuenta);
+        Usuario usuarioOrigen = ABMUsuario.read(42);
 
-        Cuenta tuCuenta = ABMCuenta.read(tucuenta);
+        // Persona persona = ABMPersona.read(66);
 
-        Billetera billeteraDestino = ABMBilletera.read(cuentaEncontrada.getBilletera().getBilletera_id());
+        Usuario usuarioDestino = ABMUsuario.read(40);
 
-        Billetera billeteraOrigen  = ABMBilletera.read(tuCuenta.getBilletera().getBilletera_id());
+        Movimiento enviarDinero = new Movimiento();
+        enviarDinero.setImporte(-(15.0));
+        enviarDinero.setDeUsuarioId(usuarioOrigen.getUsuarioId());
+        enviarDinero.setAUsuarioId(usuarioDestino.getUsuarioId());
+        enviarDinero.setCuentaDestinoId(usuarioDestino.getPersona().getBilletera().getBilleteraId());
+        enviarDinero.setCuentaOrigenId(usuarioOrigen.getPersona().getBilletera().getBilleteraId());
+        enviarDinero.setConceptoDeOperacion("Enviar dinero");
+        enviarDinero.setFechaMovimiento(new Date());
+        enviarDinero.setEstado(0);
+        enviarDinero.setTipoDeOperacion("Transferencia");
 
-        Persona personaEncontrada = ABMPersona.read(billeteraDestino.getPersona().getPersonaId());
+        usuarioOrigen.getPersona().getBilletera().agregarMovimiento(enviarDinero);
+        ABMBilletera.update(usuarioOrigen.getPersona().getBilletera());
 
-        Persona personaOrigen = ABMPersona.read(billeteraOrigen.getPersona().getPersonaId());
+        Movimiento recibirDinero = new Movimiento();
+        recibirDinero.setImporte(15.0);
+        recibirDinero.setDeUsuarioId(usuarioOrigen.getUsuarioId());
+        recibirDinero.setAUsuarioId(usuarioDestino.getUsuarioId());
+        recibirDinero.setCuentaDestinoId(usuarioDestino.getPersona().getBilletera().getBilleteraId());
+        recibirDinero.setCuentaOrigenId(usuarioOrigen.getPersona().getBilletera().getBilleteraId());
+        recibirDinero.setConceptoDeOperacion("Recibir dinero");
+        recibirDinero.setFechaMovimiento(new Date());
+        recibirDinero.setEstado(0);
+        recibirDinero.setTipoDeOperacion("Transferencia");
 
-        //Usuario usuarioD = ABMUsuario.read(personaEncontrada.getUsuario().getUsuarioid());
-        
-        //Usuario usuarioO = ABMUsuario.read(personaOrigen.getUsuario().getUsuarioid());
+        usuarioDestino.getPersona().getBilletera().agregarMovimiento(recibirDinero);
+        ABMBilletera.update(usuarioDestino.getPersona().getBilletera());
 
-
-        if (cuentaEncontrada != null) {
-            System.out.println("La cuenta encontrada pertenece a: " + personaEncontrada.getNombre());
-            Movimiento m = new Movimiento();
-            m.setImporte(-(20.0));
-            m.setDeUsuario_id(personaEncontrada.getUsuario().getUsuarioid());
-            m.setaUsario_id(personaOrigen.getUsuario().getUsuarioid());
-            m.setCuentaDestino_id(cuentaEncontrada.getNroCuenta_id());
-            m.setCuentaOrigen_id(tuCuenta.getNroCuenta_id());
-            m.setConceptoDeOperacion("Alquiler");
-            m.setFechaMovimiento(new Date());
-            m.setEstado(0);
-            m.setTipoDeOperacion("Transfierencia");
-            // m.setCuenta(b.getCuentas().get(0));
-            billeteraOrigen.agregarMovimiento(m);
-            ABMBilletera.update(billeteraOrigen);
-
-            m.setImporte(20.0);
-            m.setDeUsuario_id(personaOrigen.getUsuario().getUsuarioid());
-            m.setaUsario_id(personaEncontrada.getUsuario().getUsuarioid());
-            m.setCuentaDestino_id(tuCuenta.getNroCuenta_id());
-            m.setCuentaOrigen_id(cuentaEncontrada.getNroCuenta_id());
-            m.setConceptoDeOperacion("Alquiler");
-            m.setFechaMovimiento(new Date());
-            m.setEstado(0);
-            m.setTipoDeOperacion("Transferencia");
-
-            billeteraDestino.agregarMovimiento(m);
-            ABMBilletera.update(billeteraDestino);
-
-
-            
-
-            
-
-
-
-        }
+        System.out.println("Transferencia realizada exitosamente");
 
     }
-
 }

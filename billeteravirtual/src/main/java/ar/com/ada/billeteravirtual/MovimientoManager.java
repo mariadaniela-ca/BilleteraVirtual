@@ -45,10 +45,10 @@ public class MovimientoManager {
         session.close();
     }
 
-    public Movimiento read(int movimiento_id) {
+    public Movimiento read(int movimientoId) {
         Session session = sessionFactory.openSession();
 
-        Movimiento movimiento = session.get(Movimiento.class, movimiento_id);
+        Movimiento movimiento = session.get(Movimiento.class, movimientoId);
 
         session.close();
 
